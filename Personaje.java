@@ -1,6 +1,6 @@
 /**
- * Prácticas de Metodología de la Programación.
- * Jeroquest - Un ejemplo de Programación orientada a objetos.
+ * PrÃ¡cticas de MetodologÃ­a de la ProgramaciÃ³n.
+ * Jeroquest - Un ejemplo de ProgramaciÃ³n orientada a objetos.
  * Clase Personaje 
  * @author Jorge Puente Peinador y Ramiro Varela Arias
  * @version 1
@@ -18,7 +18,7 @@ public abstract class Personaje {
 	
 /**
  * Crea un personaje a partir de su nombre,
- * inicialmente su posición es nula (fuera del tablero)
+ * inicialmente su posiciÃ³n es nula (fuera del tablero)
  * @param suNombre nombre del personaje
  */
 
@@ -40,7 +40,7 @@ public abstract class Personaje {
 }
 
 	/**
-	 * Obtén las unidades de movimiento por turno
+	 * ObtÃ©n las unidades de movimiento por turno
 	 * (observador)
 	 * @return unidades de movimiento del personaje
 	 */
@@ -49,7 +49,7 @@ public abstract class Personaje {
 	}
 
 	/**
-	 * Obtén los dados de ataque
+	 * ObtÃ©n los dados de ataque
 	 * @return dados de ataque del personaje
 	 */
 	public int getAtaque() {
@@ -57,7 +57,7 @@ public abstract class Personaje {
 	}
 
 	/**
-	 * Obtén los dados de defensa
+	 * ObtÃ©n los dados de defensa
 	 * @return dados de defensa del personaje
 	 */
 	public int getDefensa() {
@@ -65,7 +65,7 @@ public abstract class Personaje {
 	}
 
 	/** 
-	 * Obtén los puntos de vida 
+	 * ObtÃ©n los puntos de vida 
 	 * @return puntos de vida del personaje
 	 */
 	public int getCuerpo() {
@@ -73,7 +73,7 @@ public abstract class Personaje {
 	}
 
 	/**
-	 * Obtén el nombre 
+	 * ObtÃ©n el nombre 
 	 * @return el nombre del personaje 
 	 */
 	public String getNombre() {
@@ -81,17 +81,17 @@ public abstract class Personaje {
 	}
 
 	/**
-	 * Comprueba si al personaje le queda algún punto de vida
-	 * @return cierto si está vivo, falso en otro caso
+	 * Comprueba si al personaje le queda algÃºn punto de vida
+	 * @return cierto si estÃ¡ vivo, falso en otro caso
 	 */
 	public boolean estaVivo() {
 		return cuerpo > 0;
 	}
 
 	/** 
-	 * Calcula un ataque del personaje calculando el número de impactos,
+	 * Calcula un ataque del personaje calculando el nÃºmero de impactos,
 	 * para ello tira tantos dados como su propiedad ataque indique
-	 * @return el número de impactos del personaje
+	 * @return el nÃºmero de impactos del personaje
 	 */
 	public int atacar() {
 		int impactos = 0;
@@ -103,16 +103,67 @@ public abstract class Personaje {
 
 	/** 
 	 * El personaje se defiende de un ataque
-	 * (método abstracto: cada subclase definirá su comportamiento propio)
+	 * (mÃ©todo abstracto: cada subclase definirÃ¡ su comportamiento propio)
 	 * @param impactos el total de impactos que tiene que intentar detener o sufrir
 	 * @return el numero de heridas sufridas
 	 */
 	public abstract int defender(int impactos);
-
+	/**
+	 * 
+	 * @param v_personajes
+	 * @return si estan todos muertos retorna verdadero
+	 */
+	public static boolean todosmuertos(Personaje[] v_personajes)
+	{
+		boolean muertos=true;
+		
+		for(int i=0;i<v_personajes.length;i++)
+		{
+			if(v_personajes[i].estaVivo())
+				muertos=false;
+		}
+		return muertos;
+	}
+	/**
+	 * 
+	 * @param v_personajes
+	 * @return indice del personaj con mas vida
+	 */
+	public static int masvida(Personaje[] v_personajes)
+	{
+		int vida=0,indice=0;
+		for(int i=0;i<v_personajes.length;i++)
+		{
+			if(v_personajes[i].getCuerpo()>vida)
+			{
+				vida=v_personajes[i].getCuerpo();
+				indice=i;
+			}
+		}
+		return indice;
+		
+	}
+	
+	public static void ordenaPersonajes(Personaje[] v_personajes)
+	{
+		Personaje aux;
+		for(int i=0;i<v_personajes.length-1;i++)
+		{
+			for(int j=i+1;j<v_personajes.length;j++)
+			{
+				if(v_personajes[j].getCuerpo()> v_personajes[i].getCuerpo())
+				{
+					aux= v_personajes[i];
+					v_personajes[i]=v_personajes[j];
+					v_personajes[i]=aux;
+				}
+			}
+		}
+	}
 	/** 
-	 * Genera la versión String imprimible del objeto
-	 *  (Método reescrito)
-	 * @return La versión como String imprimible del personaje 
+	 * Genera la versiÃ³n String imprimible del objeto
+	 *  (MÃ©todo reescrito)
+	 * @return La versiÃ³n como String imprimible del personaje 
 	 */
 	@Override
 	public String toString() {
